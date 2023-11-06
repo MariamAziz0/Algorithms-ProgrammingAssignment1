@@ -34,5 +34,24 @@ public class HelpingFunctions {
         Random random = new Random();
         return random.nextInt(q - p + 1) + p;
     }
+    public static Integer[] generateDistinctRandomArray(int size, int min, int max) {
+        if (size > (max - min + 1))
+            throw new IllegalArgumentException("Can't generate distinct random integers for the given range and size.");
+
+        Integer[] result = new Integer[size];
+        HashSet<Integer> set = new HashSet<>();
+
+        Random rand = new Random();
+
+        for (int i = 0; i < size; i++) {
+            int randomValue;
+            do {
+                randomValue = rand.nextInt(max - min + 1) + min;
+            } while (set.contains(randomValue));
+            set.add(randomValue);
+            result[i] = randomValue;
+        }
+        return result;
+    }
 
 }

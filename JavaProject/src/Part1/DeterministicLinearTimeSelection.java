@@ -45,13 +45,11 @@ public class DeterministicLinearTimeSelection {
         for(int j = 0 ; j < medians.size() ; j++) {
             mediansArray[j] = medians.get(j);
         }
-//        System.out.println("Median array:");
-//        printArray(mediansArray);
+
         if(medians.size() > 5)
             x = getPivot(mediansArray, 0, medians.size() - 1);
         else
             x = getMedianOf5Elements(mediansArray);
-//        System.out.println("X: " + x);
         return x;
     }
 

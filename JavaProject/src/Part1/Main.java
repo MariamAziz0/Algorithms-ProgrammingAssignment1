@@ -8,5 +8,14 @@ public class Main {
                     DeterministicLinearTimeSelection.linearTimeSelection(array, i + 1) + " " +
                     SortingSelection.sortingSelection(array, i + 1));
         }
+
+        System.out.println("-----------------------------------------------------------------------------");
+
+        Integer[] array2 = HelpingFunctions.generateDistinctRandomArray(10000, 0, 100000);
+        for(int i = 0 ; i < array2.length ; i++){
+            System.out.println(RandomizedDivideANDConquer.randomizedSelection(array2, i + 1) + " " +
+                    DeterministicLinearTimeSelection.linearTimeSelection(array2, i + 1) + " " +
+                    SortingSelection.sortingSelection(array2, i + 1));
+        }
     }
 }
