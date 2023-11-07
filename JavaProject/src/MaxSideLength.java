@@ -23,24 +23,26 @@ public class MaxSideLength {
             return computeSide(sortedByX[p], sortedByX[q]);
 
         int r = (p + q) / 2;
-        long left = findMaxSide(sortedByX, sortedByY, p, r);
-        long right = findMaxSide(sortedByX, sortedByY, r + 1, q);
+        long[][] YLeft = getYPartition(sortedByY, sortedByX[r][0], true);
+        long[][] YRight = getYPartition(sortedByY, sortedByX[r][0], false);
+        long left = findMaxSide(sortedByX, YLeft, p, r);
+        long right = findMaxSide(sortedByX, YRight, r + 1, q);
         long minSquare = Math.min(left, right);
 
-        minSquare = Math.min(minSquare, combining(sortedByY, p, q, minSquare, sortedByX[r][0]));
+        minSquare = Math.min(minSquare, combining(sortedByY, minSquare, sortedByX[r][0]));
 
         return minSquare;
     }
 
-    private long combining(long[][] sortedByY, int p, int q, long minSquare, long x) {
-        for(int i = p ; i <= q ; i++) {
+    private long combining(long[][] sortedByY, long minSquare, long x) {
+        for(int i = 0 ; i < sortedByY.length ; i++) {
             if(sortedByY[i][0] <= x - minSquare) {
-                for(int j = i ; j < i + 6 && j < q; j++) {
+                for(int j = i ; j < i + 6 && j < sortedByY.length - 1; j++) {
                     minSquare = Math.min(minSquare, computeSide(sortedByY[j], sortedByY[j + 1]));
                 }
             }
             if(sortedByY[i][0] >= x + minSquare){
-                for(int j = i ; j < i + 6 && j < q; j++) {
+                for(int j = i ; j < i + 6 && j < sortedByY.length - 1; j++) {
                     minSquare = Math.min(minSquare, computeSide(sortedByY[j], sortedByY[j + 1]));
                 }
             }
@@ -56,6 +58,35 @@ public class MaxSideLength {
             Arrays.sort(array, (a, b) -> Long.compare(a[1], b[1]));
         else
             Arrays.sort(array, (a, b) -> Long.compare(a[0], b[0]));
+    }
+
+    private long[][] getYPartition(long[][] Y, long x, boolean left) {
+        long[][] temp; int count = 0;
+        if(left) {
+            for(int i = 0 ; i < Y.length ; i++)
+                if(Y[i][0] <= x)
+                    count++;
+            temp = new long[count][2]; int index = 0;
+            for(int i = 0 ; i < Y.length ; i++)
+                if(Y[i][0] <= x) {
+                    temp[index][0] = Y[i][0];
+                    temp[index][1] = Y[i][1];
+                    index++;
+                }
+        }
+        else {
+            for(int i = 0 ; i < Y.length ; i++)
+                if(Y[i][0] > x)
+                    count++;
+            temp = new long[count][2]; int index = 0;
+            for(int i = 0 ; i < Y.length ; i++)
+                if(Y[i][0] > x) {
+                    temp[index][0] = Y[i][0];
+                    temp[index][1] = Y[i][1];
+                    index++;
+                }
+        }
+        return temp;
     }
 
     private long[][] copyArray(long[][] array) {
@@ -112,5 +143,4 @@ public class MaxSideLength {
             return null;
         }
     }
-
 }
