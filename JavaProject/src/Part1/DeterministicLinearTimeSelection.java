@@ -60,12 +60,4 @@ public class DeterministicLinearTimeSelection {
         }
         return 0;
     }
-
-    public static void main(String[] args) {
-        int[] array = new int[]{6, 10, 13, 5, 8, 3, 2, 11, 12, 15};
-        for (int i = 0; i < array.length; i++) {
-            System.out.println(" Soln: " + DeterministicLinearTimeSelection.linearTimeSelection(array, i + 1) + " " +
-                    SortingSelection.sortingSelection(array, i + 1));
-        }
-    }
 }

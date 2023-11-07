@@ -36,7 +36,7 @@ public class HelpingFunctions {
     }
     public static int[] generateDistinctRandomArray(int size, int min, int max) {
         if (size > (max - min + 1))
-            throw new IllegalArgumentException("Can't generate distinct random integers for the given range and size.");
+            throw new IllegalArgumentException("Can't generate distinct random integers.");
 
         int[] result = new int[size];
         HashSet<Integer> set = new HashSet<>();
