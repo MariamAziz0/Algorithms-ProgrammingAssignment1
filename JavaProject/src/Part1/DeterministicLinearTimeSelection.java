@@ -2,11 +2,11 @@ package Part1;
 import java.util.*;
 
 public class DeterministicLinearTimeSelection {
-    public static Integer linearTimeSelection(Integer[] array, int i) {
+    public static int linearTimeSelection(int[] array, int i) {
         return linearTimeSelection(array, 0, array.length - 1, i);
     }
 
-    private static Integer linearTimeSelection(Integer[] array, int p, int q, int i) {
+    private static int linearTimeSelection(int[] array, int p, int q, int i) {
         int pivot = getPivot(array, p, q);
         int pivot_index = findInArray(array, pivot);
         int index = HelpingFunctions.partition(array, pivot_index, p, q);
@@ -20,44 +20,52 @@ public class DeterministicLinearTimeSelection {
     }
 
 
-    private static int getMedianOf5Elements(Integer[] array){
+    private static int getMedianOf5Elements(int[] array){
         Arrays.sort(array);
         return array[array.length / 2];
     }
 
-    private static int getPivot(Integer[] array, int p, int q) {
+    private static int getPivot(int[] array, int p, int q) {
         if(p == q)
             return array[p];
-        ArrayList<Integer> medians = new ArrayList<>();
-        for(int i = p ; i <= q ; i+=5){
-            ArrayList<Integer> temp = new ArrayList<>();
-            for(int j = 0 ; j < 5 && i+j <= q ; j++) {
-                temp.add(array[i + j]);
+        int[] mediansArray = new int[(int) Math.ceil((q - p + 1) / 5.0)];
+        int last_element = p;
+        for(int i = 0 ; i < (q - p + 1) / 5 ; i++) {
+            int[] temp = new int[5];
+            for(int j = 0 ; j < 5 ; j++) {
+                temp[j] = array[last_element];
+                last_element++;
             }
-            Integer[] medians5 = new Integer[temp.size()];
-            for(int j = 0 ; j < temp.size() ; j++) {
-                medians5[j] = temp.get(j);
+            mediansArray[i] = getMedianOf5Elements(temp);
+        }
+        if((q - p + 1) % 5 > 0) {
+            int[] temp = new int[(q - p + 1) % 5];
+            for(int i = last_element; i <= q ; i++) {
+                temp[i-last_element] = array[i];
             }
-            medians.add(getMedianOf5Elements(medians5));
+            mediansArray[mediansArray.length - 1] = getMedianOf5Elements(temp);
         }
         int x = 0;
-        Integer[] mediansArray = new Integer[medians.size()];
-        for(int j = 0 ; j < medians.size() ; j++) {
-            mediansArray[j] = medians.get(j);
-        }
-
-        if(medians.size() > 5)
-            x = getPivot(mediansArray, 0, medians.size() - 1);
+        if(mediansArray.length > 5)
+            x = getPivot(mediansArray, 0, mediansArray.length - 1);
         else
             x = getMedianOf5Elements(mediansArray);
         return x;
     }
 
-    private static Integer findInArray(Integer[] array, int x) {
+    private static int findInArray(int[] array, int x) {
         for(int i = 0 ; i < array.length ; i++) {
             if(array[i] == x)
                 return i;
         }
         return 0;
+    }
+
+    public static void main(String[] args) {
+        int[] array = new int[]{6, 10, 13, 5, 8, 3, 2, 11, 12, 15};
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(" Soln: " + DeterministicLinearTimeSelection.linearTimeSelection(array, i + 1) + " " +
+                    SortingSelection.sortingSelection(array, i + 1));
+        }
     }
 }

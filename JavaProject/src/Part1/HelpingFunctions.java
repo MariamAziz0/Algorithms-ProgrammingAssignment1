@@ -3,20 +3,20 @@ import java.util.*;
 
 public class HelpingFunctions {
 
-    public static void printArray(Integer[] array) {
+    public static void printArray(int[] array) {
         for(int i = 0 ; i < array.length ; i++) {
             System.out.print(array[i] + " ");
         }
         System.out.println();
     }
 
-    public static void swap(Integer[] array, int i, int j) {
+    public static void swap(int[] array, int i, int j) {
         int temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }
 
-    public static int partition(Integer[] array, int pivot, int p, int q) {
+    public static int partition(int[] array, int pivot, int p, int q) {
         int j = p;
         int x = array[pivot];
         swap(array, p, pivot);
@@ -34,11 +34,11 @@ public class HelpingFunctions {
         Random random = new Random();
         return random.nextInt(q - p + 1) + p;
     }
-    public static Integer[] generateDistinctRandomArray(int size, int min, int max) {
+    public static int[] generateDistinctRandomArray(int size, int min, int max) {
         if (size > (max - min + 1))
             throw new IllegalArgumentException("Can't generate distinct random integers for the given range and size.");
 
-        Integer[] result = new Integer[size];
+        int[] result = new int[size];
         HashSet<Integer> set = new HashSet<>();
 
         Random rand = new Random();

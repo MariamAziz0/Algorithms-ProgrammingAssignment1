@@ -2,7 +2,7 @@ package Part1;
 
 public class RandomizedDivideANDConquer {
 
-    private static Integer randomizedSelection(Integer[] a, int p, int q, int i) {
+    private static int randomizedSelection(int[] a, int p, int q, int i) {
         if(p == q)
             return a[p];
         int pivot = HelpingFunctions.getRandomNumber(p, q);
@@ -16,7 +16,7 @@ public class RandomizedDivideANDConquer {
             return randomizedSelection(a, r + 1, q, i - k);
     }
 
-    public static Integer randomizedSelection(Integer[] a, int i) {
+    public static int randomizedSelection(int[] a, int i) {
         return randomizedSelection(a, 0, a.length - 1, i);
     }
 }
