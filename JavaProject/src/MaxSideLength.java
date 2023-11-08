@@ -64,11 +64,11 @@ public class MaxSideLength {
         long[][] temp; int count = 0;
         if(left) {
             for(int i = 0 ; i < Y.length ; i++)
-                if(Y[i][0] <= x)
+                if(Y[i][0] < x)
                     count++;
             temp = new long[count][2]; int index = 0;
             for(int i = 0 ; i < Y.length ; i++)
-                if(Y[i][0] <= x) {
+                if(Y[i][0] < x) {
                     temp[index][0] = Y[i][0];
                     temp[index][1] = Y[i][1];
                     index++;
@@ -143,4 +143,27 @@ public class MaxSideLength {
             return null;
         }
     }
+
+//    public static void main(String[] args) {
+//        String input = "test2.txt";
+//        MaxSideLength obj = new MaxSideLength();
+//        long start = System.currentTimeMillis();
+//        System.out.println(obj.solve(input));
+//        long end = System.currentTimeMillis();
+//        System.out.println("Time: " + (end - start));
+//        start = System.currentTimeMillis();
+//        System.out.println(obj.getTest(input));
+//        end = System.currentTimeMillis();
+//        System.out.println("Time: " + (end - start));
+//    }
+//
+//    public long getTest(String input) {
+//        long result = Long.MAX_VALUE;
+//        long[][] points = getInput(input);
+//        for(int i = 0 ; i < points.length ; i++)
+//            for(int j = i + 1 ; j < points.length ; j++)
+//                result = Math.min(result, computeSide(points[i], points[j]));
+//        return result;
+//    }
+
 }
