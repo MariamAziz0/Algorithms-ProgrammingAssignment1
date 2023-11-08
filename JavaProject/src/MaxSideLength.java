@@ -36,14 +36,9 @@ public class MaxSideLength {
 
     private long combining(long[][] sortedByY, long minSquare, long x) {
         for(int i = 0 ; i < sortedByY.length ; i++) {
-            if(sortedByY[i][0] <= x - minSquare) {
-                for(int j = i ; j < i + 6 && j < sortedByY.length - 1; j++) {
-                    minSquare = Math.min(minSquare, computeSide(sortedByY[j], sortedByY[j + 1]));
-                }
-            }
-            if(sortedByY[i][0] >= x + minSquare){
-                for(int j = i ; j < i + 6 && j < sortedByY.length - 1; j++) {
-                    minSquare = Math.min(minSquare, computeSide(sortedByY[j], sortedByY[j + 1]));
+            if(minSquare == Long.MAX_VALUE || sortedByY[i][0] >= x - minSquare || sortedByY[i][0] <= x + minSquare) {
+                for(int j = i + 1; j <= i + 7 && j < sortedByY.length; j++) {
+                    minSquare = Math.min(minSquare, computeSide(sortedByY[i], sortedByY[j]));
                 }
             }
         }
@@ -160,6 +155,8 @@ public class MaxSideLength {
 //    public long getTest(String input) {
 //        long result = Long.MAX_VALUE;
 //        long[][] points = getInput(input);
+//        if(points == null)
+//            return -1;
 //        for(int i = 0 ; i < points.length ; i++)
 //            for(int j = i + 1 ; j < points.length ; j++)
 //                result = Math.min(result, computeSide(points[i], points[j]));
